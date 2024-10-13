@@ -1,6 +1,6 @@
 # Description: This script is used to call the OpenAI API to get a response for a given prompt. 
 # @Author: Bertan Berker
-
+# @Language: Python
 
 from dotenv import load_dotenv
 import os
