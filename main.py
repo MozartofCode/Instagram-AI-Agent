@@ -4,6 +4,7 @@
 # @Language: Python
 
 from prompt import get_openai_text, get_openai_image
+from instagram import post_on_instagram
 
 # Main function to run the program
 def main():
@@ -14,6 +15,11 @@ def main():
     image_prompt = ""
     post_image = get_openai_image(image_prompt)
     print(post_image)
+
+    post_on_instagram(post_caption, post_image)
+
+    print("Post successfully created and uploaded to Instagram!")
+
 
 
 if __name__ == "__main__":
