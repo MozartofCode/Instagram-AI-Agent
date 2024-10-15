@@ -16,9 +16,12 @@ def main():
     post_image = get_openai_image(image_prompt)
     print(post_image)
 
-    post_on_instagram(post_caption, post_image)
+    #post_on_instagram(post_caption, post_image)
 
-    print("Post successfully created and uploaded to Instagram!")
+    # Preview, confirmation step?
+    # Chrome extension
+
+    # print("Post successfully created and uploaded to Instagram!")
 
 
 
