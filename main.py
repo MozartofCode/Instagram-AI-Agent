@@ -4,7 +4,6 @@
 # @Language: Python
 
 from prompt import get_openai_text, get_openai_image
-from instagram import post_on_instagram
 
 # Main function to run the program
 def main():
