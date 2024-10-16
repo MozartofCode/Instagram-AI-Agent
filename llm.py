@@ -19,7 +19,8 @@ def get_openai_text(prompt):
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a world-class instagram influencer and you are excellent at generating posts"},
+            {"role": "system", "content": "You are a world-class X influencer and you are excellent at generating posts and \
+             you generate one caption each time asked as a response which is your most creative and best caption"},
             {"role": "user", "content": prompt}
         ]
     )

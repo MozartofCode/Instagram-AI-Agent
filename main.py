@@ -5,11 +5,10 @@
 
 
 from langchain.agents import initialize_agent, Tool
-from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
 from llm import get_openai_text, get_openai_image
 from X import post_on_X
 import requests
-
 
 # Main function to run the program
 def post_image_with_caption(text_prompt):
@@ -20,7 +19,7 @@ def post_image_with_caption(text_prompt):
     post_image = get_openai_image(text_prompt)
     print(post_image)
 
-    post_on_X(post_caption, post_image)
+    #post_on_X(post_caption, post_image)
 
 
 def main():
@@ -34,13 +33,15 @@ def main():
         )
     ]
 
-    llm = OpenAI(model="gpt-3.5-turbo-0125")
+    llm = ChatOpenAI(model="gpt-3.5-turbo")
     agent = initialize_agent(tools, llm, agent="zero-shot-react-description")
 
     text_prompt = input("What kind of a post you want to generate: ")
     
     # Executing the agent
     agent.invoke(text_prompt)
+
+    return 1
 
 
 if __name__ == "__main__":
