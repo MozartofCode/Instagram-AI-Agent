@@ -19,7 +19,7 @@ def post_image_with_caption(text_prompt):
     post_image = get_openai_image(text_prompt)
     print(post_image)
 
-    #post_on_X(post_caption, post_image)
+    post_on_X(post_caption, post_image)
 
 
 def main():

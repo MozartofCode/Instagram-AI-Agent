@@ -51,10 +51,7 @@ def post_on_X(caption, image_url):
     image_path = "img.png"
 
     media = api.media_upload(image_path)
-    post_result = newApi.create_tweet(text=tweet, media_ids=[media.media_id])
+    newApi.create_tweet(text=tweet, media_ids=[media.media_id])
 
-    if post_result == 200:
-        print("Tweet with image posted successfully!")
+    print("Tweet with image posted successfully!")
     
-    else:
-        print("Failed to post tweeet")
