@@ -1,27 +1,46 @@
-# Description: This is the main file that runs the program. 
-# It takes user input for the text prompt and generates a post caption and image using OpenAI's GPT-3 API.
 # @Author: Bertan Berker
 # @Language: Python
+# Description: This is the main file that runs the program. 
+# It takes user input for the text prompt and generates a post caption and image using OpenAI's GPT-3 API.
 
-from prompt import get_openai_text, get_openai_image
+
+from langchain.agents import initialize_agent, Tool
+from langchain.llms import OpenAI
+from llm import get_openai_text, get_openai_image
+from X import post_on_X
+import requests
+
 
 # Main function to run the program
-def main():
-    text_prompt = input("Enter what kind of a post you want to generate: ")
+def post_image_with_caption(text_prompt):
+    
     post_caption = get_openai_text(text_prompt)
     print(post_caption)
 
-    image_prompt = ""
-    post_image = get_openai_image(image_prompt)
+    post_image = get_openai_image(text_prompt)
     print(post_image)
 
-    #post_on_instagram(post_caption, post_image)
+    post_on_X(post_caption, post_image)
 
-    # Preview, confirmation step?
-    # Chrome extension
 
-    # print("Post successfully created and uploaded to Instagram!")
+def main():
+    # Creating the Agent 
 
+    tools = [
+        Tool(
+            name="Generate and Post",
+            func=post_image_with_caption,
+            description="This tool generates a post caption and an image based on a given prompt and posts it on Twitter",
+        )
+    ]
+
+    llm = OpenAI(model="gpt-3.5-turbo-0125")
+    agent = initialize_agent(tools, llm, agent="zero-shot-react-description")
+
+    text_prompt = input("What kind of a post you want to generate: ")
+    
+    # Executing the agent
+    agent.invoke(text_prompt)
 
 
 if __name__ == "__main__":

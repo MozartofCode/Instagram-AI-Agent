@@ -1,11 +1,11 @@
 # @Author: Bertan Berker
 # @Language: Python
-# 
+# This program is a Twitter bot that generates a tweet with an image based on given input
 
 import tweepy
 from dotenv import load_dotenv
-from datetime import date
-import shutil, pathlib, os
+import os
+import requests
 
 load_dotenv()
 
@@ -16,31 +16,45 @@ ACCESS_TOKEN_SECRET = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
 BEARER_TOKEN = os.getenv('TWITTER_BEARER_TOKEN')
 
 
-# Authenticate to Twitter
-auth = tweepy.OAuthHandler(
-    API_KEY, API_SECRET_KEY, ACCESS_TOKEN, ACCESS_TOKEN_SECRET
-)
 
-# Twitter API 2.0
-newApi = tweepy.Client(
-    bearer_token=BEARER_TOKEN,
-     access_token=ACCESS_TOKEN,
-    access_token_secret=ACCESS_TOKEN_SECRET,
-    consumer_key=API_KEY,
-    consumer_secret=API_SECRET_KEY,
-)
+def post_on_X(caption, image_url):
 
-# Create an API object
-api = tweepy.API(auth)
+    # Authenticate to Twitter
+    auth = tweepy.OAuthHandler(
+        API_KEY, API_SECRET_KEY, ACCESS_TOKEN, ACCESS_TOKEN_SECRET
+    )
 
-# Post a tweet with text and media
-tweet = "This is a tweet with an image!"
-image_path = "img.png"
+    # Twitter API 2.0
+    newApi = tweepy.Client(
+        bearer_token=BEARER_TOKEN,
+        access_token=ACCESS_TOKEN,
+        access_token_secret=ACCESS_TOKEN_SECRET,
+        consumer_key=API_KEY,
+        consumer_secret=API_SECRET_KEY,
+    )
 
-media = api.media_upload(image_path)
-post_result = newApi.create_tweet(text=tweet, media_ids=[media.media_id])
+    # Create an API object
+    api = tweepy.API(auth)
 
+    # Post a tweet with text and media
+    tweet = caption
 
-print("Tweet with image posted successfully!")
+    response = requests.get(image_url)
+    
+    if response.status_code == 200:
+        with open("img.png", 'wb') as file:
+            file.write(response.content)
+    else:
+        print("Failed to download image")
+        return False
+    
+    image_path = "img.png"
 
+    media = api.media_upload(image_path)
+    post_result = newApi.create_tweet(text=tweet, media_ids=[media.media_id])
 
+    if post_result == 200:
+        print("Tweet with image posted successfully!")
+    
+    else:
+        print("Failed to post tweeet")
