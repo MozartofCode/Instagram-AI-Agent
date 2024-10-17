@@ -22,7 +22,7 @@ def post_image_with_caption(text_prompt):
     post_on_X(post_caption, post_image)
 
 
-def main():
+def create(text_prompt):
     # Creating the Agent 
 
     tools = [
@@ -36,11 +36,11 @@ def main():
     llm = ChatOpenAI(model="gpt-3.5-turbo")
     agent = initialize_agent(tools, llm, agent="zero-shot-react-description")
 
-    text_prompt = input("What kind of a post you want to generate: ")
-    
     # Executing the agent
     agent.invoke(text_prompt)
 
 
-if __name__ == "__main__":
-    main()
+def main():
+    text_prompt = input("What kind of a post you want to generate: ")
+    create(text_prompt)
+    

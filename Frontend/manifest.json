@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "X Post-Maker Extension",
+    "version": "1.0",
+    "description": "This extension allows you to create posts on X",
+    "author": "Bertan Berker",
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "X Post-Maker Extension"
+    },
+    "icons": {
+      "16": "X.jpg",
+      "48": "X.jpg",
+      "128": "X.jpg"
+    }
+  }
+  
