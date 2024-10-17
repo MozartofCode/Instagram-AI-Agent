@@ -5,14 +5,11 @@
 
 from flask import Flask, request, jsonify, render_template
 from main import create
+from flask_cors import CORS
+import os
 
 app = Flask(__name__)
-
-
-@app.route('/')
-def index():
-    return render_template('popup.html') 
-
+CORS(app)
 
 
 @app.route('/process-prompt', methods=['POST'])
